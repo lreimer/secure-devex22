@@ -1,6 +1,6 @@
 # This workflow uses actions that are not certified by GitHub.
 
-name: Java CI with Gradle
+name: OWASP Dependency Check
 
 on:
   workflow_dispatch:
