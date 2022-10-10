@@ -9,6 +9,7 @@ Demo repository for my talk at the Heise Developer Experience 2022 conference.
 ```bash
 # build and run the service, or use Tilt
 ./gradlew assemble bootRun
+tilt up
 
 # call the service endpoints
 http get localhost:8080/openapi/
@@ -16,11 +17,137 @@ http get localhost:8080/api/cves/CVE-2021-44228
 
 http get localhost:8081/actuator
 http get localhost:8081/actuator/health
+```
 
+## Google ErrorProne
+
+Find common programming mistakes early during development as part of the Java compile phase.
+See https://errorprone.info
+
+```groovy
+plugins {
+	id 'java'
+	id "net.ltgt.errorprone" version "2.0.2"
+}
+
+dependencies {
+    // dependency for the javac compiler plugin
+	errorprone "com.google.errorprone:error_prone_core:2.15.0"
+}
+
+tasks.named("compileJava").configure {
+    options.errorprone.enabled = true
+    // and many other options
+}
+```
+
+## SonarCloud Analysis
+
+Sonar can detect 54 security vulnerabilities and 38 security hotspots using static code analysis.
+See https://rules.sonarsource.com/java/type/Vulnerability
+
+```groovy
+plugins {
+	id "jacoco"
+    id "org.sonarqube" version "3.4.0.2513"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", "lreimer_secure-devex22"
+    property "sonar.organization", "lreimer"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
+}
+```
+
+Also, it can easily be integrated into your CI build as well as your IDE (e.g. VS Code) using SonarLint.
+
+## OWASP Dependency Checks
+
+The compile time and runtime dependencies of your applications and services can be checked for CVEs regularly using the OWASP dependency check plugins for Gradle or Maven.
+
+```groovy
+plugins {
+	id "org.owasp.dependencycheck" version "7.2.1"
+}
+
+dependencyCheck {
+    cveValidForHours=24
+	failOnError=true
+}
+```
+
+## Docker Image Vulnerability Scanning
+
+```bash
 # to manually build the Docker image use on of the following commands
 ./gradlew bootBuildImage
 docker build -t secure-devex22:1.0.0 .
+
+# Installation and usage instructions for Docker Lint
+# https://github.com/projectatomic/dockerfile_lint
+dockerfile_lint -f Dockerfile -r src/test/docker/basic_rules.yaml
+dockerfile_lint -f Dockerfile -r src/test/docker/security_rules.yaml
+
+# Installation and usage instructions for Trivy
+# https://github.com/aquasecurity/trivy
+trivy image -s HIGH,CRITICAL secure-devex22:1.0.0
+
+# Installation and usage instructions for Snyk
+# https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+snyk container test --file=Dockerfile secure-devex22:1.0.0
 ```
+
+## Kubernetes Security Scanning
+
+```bash
+# see https://www.kubeval.com
+kubeval k8s/base/microservice-deployment.yaml
+
+# see https://github.com/yannh/kubeconform
+kubeconform k8s/base/microservice-deployment.yaml
+
+# see https://github.com/zegl/kube-score
+kubectl score k8s/base/microservice-deployment.yaml
+
+# see https://github.com/bridgecrewio/checkov
+checkov --directory k8s/base
+checkov --directory k8s/overlays/int
+
+# see https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+snyk iac test k8s/base
+snyk iac test k8s/overlays/int
+
+# Installation and usage instructions for Trivy
+# https://github.com/aquasecurity/trivy
+trivy k8s -n default --report summary all
+trivy k8s -n default --report all all
+```
+
+## Continuous DevEx Security
+
+```bash
+# see https://github.com/pre-commit/pre-commit
+brew install pre-commit
+
+# see https://pre-commit.com/hooks.html
+# see https://github.com/gruntwork-io/pre-commit
+# see https://github.com/antonbabenko/pre-commit-terraform
+
+# install the Git hook scripts
+pre-commit install
+pre-commit run --all-files
+```
+
+## Continuous Integration Security
+
 
 ## Maintainer
 

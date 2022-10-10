@@ -7,7 +7,7 @@ commonLabels:
 resources:
   # you can also specify a Git repo URL here
   - ../../base/
-  
+
 images:
   - name: secure-devex22
     newName: ghcr.io/lreimer/secure-devex22

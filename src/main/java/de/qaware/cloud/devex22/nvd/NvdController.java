@@ -22,7 +22,7 @@ public class NvdController {
 
     @GetMapping(value = "/cves/{cveId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> getCve(@PathVariable(value = "cveId") String cveId) {        
+    public ResponseEntity<String> getCve(@PathVariable(value = "cveId") String cveId) {
         return ResponseEntity.ok(connector.queryCve(cveId));
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Component
 public class NvdConnector {
-    
+
     private static final String PASSWORD = "DON'T DO THIS!";
 
     @Value("${nvd.api.uri}")
@@ -17,6 +17,6 @@ public class NvdConnector {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(nvdApiUri));
         return restTemplate.getForObject(nvdApiUri + "?cveId=" + cveId, String.class);
-    }    
+    }
 
 }
