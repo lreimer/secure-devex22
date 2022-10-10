@@ -10,7 +10,7 @@ Demo repository for my talk at the Heise Developer Experience 2022 conference.
 
 # call the service endpoints
 http get localhost:8080/openapi/
-http get localhost:8080/openapi/
+http get localhost:8080/api/cves/CVE-2021-44228
 
 http get localhost:8081/actuator
 http get localhost:8081/actuator/health

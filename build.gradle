@@ -33,6 +33,7 @@ dependencies {
 	errorprone("com.google.errorprone:error_prone_core:2.15.0")
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 tasks.named('test') {
