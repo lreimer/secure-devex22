@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lreimer_secure-devex22&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lreimer_secure-devex22)
+
 # Secure Developer Experience
 
 Demo repository for my talk at the Heise Developer Experience 2022 conference.

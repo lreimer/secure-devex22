@@ -5,6 +5,9 @@ plugins {
 
 	id "net.ltgt.errorprone" version "2.0.2"
 	id "org.owasp.dependencycheck" version "7.2.1"
+
+	id "jacoco"
+    id "org.sonarqube" version "3.3"
 }
 
 group = 'de.qaware.cloud'
@@ -51,4 +54,10 @@ tasks.named("compileJava").configure {
 dependencyCheck {
     cveValidForHours=24
 	failOnError=true
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
