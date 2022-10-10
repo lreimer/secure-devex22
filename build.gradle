@@ -5,7 +5,8 @@ plugins {
 }
 
 group = 'de.qaware.cloud'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
+
 sourceCompatibility = '17'
 
 configurations {
@@ -21,11 +22,18 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.11'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named("bootBuildImage") {
+	imageName = "${project.name}:${project.version}"
 }
