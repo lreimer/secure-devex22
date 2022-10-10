@@ -39,7 +39,8 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
-  Analysis:
+  analysis:
+    if: ${{ false }}  # disable for now
     runs-on: ubuntu-latest
     
     steps:
