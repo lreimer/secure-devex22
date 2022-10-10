@@ -8,6 +8,8 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 @Component
 public class NvdConnector {
     
+    private static final String PASSWORD = "DON'T DO THIS!";
+
     @Value("${nvd.api.uri}")
     private String nvdApiUri;
 
