@@ -2,6 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
+
+	id "net.ltgt.errorprone" version "2.0.2"
+	id "org.owasp.dependencycheck" version "7.2.1"
 }
 
 group = 'de.qaware.cloud'
@@ -26,6 +29,8 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	errorprone("com.google.errorprone:error_prone_core:2.15.0")
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -36,4 +41,13 @@ tasks.named('test') {
 
 tasks.named("bootBuildImage") {
 	imageName = "${project.name}:${project.version}"
+}
+
+tasks.named("compileJava").configure {
+    options.errorprone.enabled = true
+}
+
+dependencyCheck {
+    cveValidForHours=24
+	failOnError=true
 }
