@@ -41,7 +41,7 @@ tasks.named("compileJava").configure {
 }
 ```
 
-## SonarCloud Analysis
+## SonarCloud Security Analysis
 
 Sonar can detect 54 security vulnerabilities and 38 security hotspots using static code analysis.
 See https://rules.sonarsource.com/java/type/Vulnerability
@@ -70,7 +70,7 @@ sonarqube {
 See https://sonarcloud.io/project/overview?id=lreimer_secure-devex22
 Also, it can easily be integrated into your CI build as well as your IDE (e.g. VS Code) using SonarLint.
 
-## OWASP Dependency Checks
+## Dependency Vulnerability Scanning
 
 The compile time and runtime dependencies of your applications and services can be checked for CVEs regularly using the OWASP dependency check plugins for Gradle or Maven.
 
@@ -130,6 +130,24 @@ snyk iac test k8s/overlays/int
 # https://github.com/aquasecurity/trivy
 trivy k8s -n default --report summary all
 trivy k8s -n default --report all all
+```
+
+## Terraform Security Scanning
+
+```bash
+# see https://github.com/terraform-linters/tflint
+# see https://github.com/terraform-linters/tflint-ruleset-aws
+cd aws
+terraform init
+terraform plan
+tflint
+
+# see https://github.com/bridgecrewio/checkov
+checkov --directory aws
+
+# Installation and usage instructions
+# https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+snyk iac test aws/
 ```
 
 ## Continuous Developer Experience

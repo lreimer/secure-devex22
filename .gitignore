@@ -4,6 +4,9 @@
 bin/
 .vscode/
 
+.terraform/
+.terraform.lock.hcl
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
