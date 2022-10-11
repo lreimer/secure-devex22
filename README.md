@@ -32,7 +32,7 @@ plugins {
 
 dependencies {
     // dependency for the javac compiler plugin
-	errorprone "com.google.errorprone:error_prone_core:2.15.0"
+    errorprone "com.google.errorprone:error_prone_core:2.15.0"
 }
 
 tasks.named("compileJava").configure {
@@ -48,7 +48,7 @@ See https://rules.sonarsource.com/java/type/Vulnerability
 
 ```groovy
 plugins {
-	id "jacoco"
+    id "jacoco"
     id "org.sonarqube" version "3.4.0.2513"
 }
 
@@ -67,6 +67,7 @@ sonarqube {
 }
 ```
 
+See https://sonarcloud.io/project/overview?id=lreimer_secure-devex22
 Also, it can easily be integrated into your CI build as well as your IDE (e.g. VS Code) using SonarLint.
 
 ## OWASP Dependency Checks
@@ -75,12 +76,12 @@ The compile time and runtime dependencies of your applications and services can 
 
 ```groovy
 plugins {
-	id "org.owasp.dependencycheck" version "7.2.1"
+    id "org.owasp.dependencycheck" version "7.2.1"
 }
 
 dependencyCheck {
     cveValidForHours=24
-	failOnError=true
+    failOnError=true
 }
 ```
 
@@ -131,7 +132,7 @@ trivy k8s -n default --report summary all
 trivy k8s -n default --report all all
 ```
 
-## Continuous DevEx Security
+## Continuous Developer Experience
 
 ```bash
 # see https://github.com/pre-commit/pre-commit
@@ -146,8 +147,41 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-## Continuous Integration Security
+## Continuous Integration
 
+GitHub and many other platforms provide CI functionality out of the box.
+```bash
+# see https://github.com/lreimer/secure-devex22/actions
+# see https://github.com/lreimer/secure-devex22/actions/new?category=security
+```
+
+
+
+## Continuous Security Scanning
+
+```bash
+# installing the Starboard Operator and CLI
+# see https://aquasecurity.github.io/starboard/
+helm repo add aqua https://aquasecurity.github.io/helm-charts/
+helm repo update
+
+helm install starboard-operator aqua/starboard-operator \
+  --namespace starboard-system \
+  --create-namespace \
+  --set="trivy.ignoreUnfixed=true" \
+  --version 0.10.8
+
+kubectl get vulnerabilityreports --all-namespaces -o wide
+
+kubectl krew install starboard
+kubectl starboard install
+kubectl starboard scan vulnerabilityreports deployment.apps/nginx-deployment
+kubectl starboard get vulnerabilityreports deployment/nginx-deployment -o yaml
+
+# see https://github.com/lreimer/continuous-zapk8s
+# see https://www.zaproxy.org/getting-started/
+# see https://www.zaproxy.org/docs/docker/api-scan/
+```
 
 ## Maintainer
 

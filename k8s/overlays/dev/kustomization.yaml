@@ -9,6 +9,9 @@ resources:
   - ../../base/
   - hoverfly-deployment.yaml
   - hoverfly-service.yaml
+  # - zap-deployment.yaml
+  # - zap-service.yaml
+  - zap-cronjob.yaml
 
 configMapGenerator:
   - name: application-configmap
