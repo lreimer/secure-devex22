@@ -26,8 +26,8 @@ See https://errorprone.info
 
 ```groovy
 plugins {
-	id 'java'
-	id "net.ltgt.errorprone" version "2.0.2"
+    id 'java'
+    id "net.ltgt.errorprone" version "2.0.2"
 }
 
 dependencies {
@@ -176,8 +176,6 @@ GitHub and many other platforms provide CI functionality out of the box.
 # see https://github.com/lreimer/secure-devex22/actions
 # see https://github.com/lreimer/secure-devex22/actions/new?category=security
 ```
-
-
 
 ## Continuous Security Scanning
 
