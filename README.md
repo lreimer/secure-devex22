@@ -124,18 +124,15 @@ kubeconform k8s/base/microservice-deployment.yaml
 # see https://github.com/zegl/kube-score
 kubectl score k8s/base/microservice-deployment.yaml
 
-# Checkov
-# see https://github.com/bridgecrewio/checkov
+# Checkov, see https://github.com/bridgecrewio/checkov
 checkov --directory k8s/base
 checkov --directory k8s/overlays/int
 
-# Snyk
-# see https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+# Snyk, see https://docs.snyk.io/snyk-cli/install-the-snyk-cli
 snyk iac test k8s/base
 snyk iac test k8s/overlays/int
 
-# Trivy
-# https://github.com/aquasecurity/trivy
+# Trivy, see https://github.com/aquasecurity/trivy
 trivy k8s -n default --report summary all
 trivy k8s -n default --report all all
 ```
@@ -149,17 +146,14 @@ Most can be found easily via static code analysis using different tools.
 # TFLint und Rule Sets
 # see https://github.com/terraform-linters/tflint
 # see https://github.com/terraform-linters/tflint-ruleset-aws
-cd aws
 terraform init
 terraform plan
 tflint
 
-# Checkov
-# see https://github.com/bridgecrewio/checkov
+# Checkov, see https://github.com/bridgecrewio/checkov
 checkov --directory aws
 
-# Snyk
-# https://docs.snyk.io/snyk-cli/install-the-snyk-cli
+# Snyk, see https://docs.snyk.io/snyk-cli/install-the-snyk-cli
 snyk iac test aws/
 ```
 
