@@ -87,6 +87,9 @@ dependencyCheck {
 
 ## Docker Image Vulnerability Scanning
 
+Several suitable tools can be used to scan your Docker images for vulnerable OS packages and
+other software components.
+
 ```bash
 # to manually build the Docker image use on of the following commands
 ./gradlew bootBuildImage
