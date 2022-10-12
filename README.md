@@ -111,6 +111,9 @@ snyk container test --file=Dockerfile secure-devex22:1.0.0
 
 ## Kubernetes Security Scanning
 
+Many security misconfigurations are possible when deploying Kubernetes workloads.
+Most can be found easily via static code analysis using different tools.
+
 ```bash
 # see https://www.kubeval.com
 kubeval k8s/base/microservice-deployment.yaml
@@ -139,6 +142,9 @@ trivy k8s -n default --report all all
 
 ## Terraform Security Scanning
 
+Many security misconfigurations of your cloud infrastructure are possible when working with Terraform.
+Most can be found easily via static code analysis using different tools.
+
 ```bash
 # TFLint und Rule Sets
 # see https://github.com/terraform-linters/tflint
@@ -159,6 +165,8 @@ snyk iac test aws/
 
 ## Continuous Developer Experience
 
+The linters and static analysis tools are ideally run before and with every Git commit and push.
+
 ```bash
 # see https://github.com/pre-commit/pre-commit
 brew install pre-commit
@@ -174,7 +182,8 @@ pre-commit run --all-files
 
 ## Continuous Integration
 
-GitHub and many other platforms provide CI functionality out of the box.
+GitHub and many other platforms provide CI and security integration functionality that can be used.
+
 ```bash
 # see https://github.com/lreimer/secure-devex22/actions
 # see https://github.com/lreimer/secure-devex22/actions/new?category=security
