@@ -31,8 +31,8 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.11'
 
 	// for demo purposes to trigger vulnerable library
-	runtimeOnly 'org.apache.logging.log4j:log4j-api:2.12.1'
-  	runtimeOnly 'org.apache.logging.log4j:log4j-core:2.20.0'
+ 	runtimeOnly 'org.apache.logging.log4j:log4j-core:2.20.0'
+	runtimeOnly 'org.apache.logging.log4j:log4j-api:2.20.0'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
