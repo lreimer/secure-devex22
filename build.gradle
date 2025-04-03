@@ -3,7 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
 
-	id "net.ltgt.errorprone" version "2.0.2"
+	id "net.ltgt.errorprone" version "3.1.0"
 	id "org.owasp.dependencycheck" version "7.2.1"
 
 	id "jacoco"
@@ -37,7 +37,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	errorprone "com.google.errorprone:error_prone_core:2.15.0"
+	errorprone "com.google.errorprone:error_prone_core:2.19.1"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.assertj:assertj-core:3.23.1'
@@ -51,19 +51,26 @@ tasks.named("bootBuildImage") {
 	imageName = "${project.name}:${project.version}"
 }
 
+tasks.named("compileTestJava").configure {
+    options.errorprone.enabled = false
+}
 tasks.named("compileJava").configure {
     options.errorprone.enabled = true
 }
 
 dependencyCheck {
-    cveValidForHours=24
-	failOnError=true
+    cveValidForHours = 24
+	failOnError = true
 }
 
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
 jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
+    dependsOn test // tests are required to run before generating the report
+	reports {
+		xml.required = true
+	}
 }
 
 sonarqube {
