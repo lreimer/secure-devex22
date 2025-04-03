@@ -7,7 +7,7 @@ plugins {
 	id "org.owasp.dependencycheck" version "7.2.1"
 
 	id "jacoco"
-    id "org.sonarqube" version "3.4.0.2513"
+	id "org.sonarqube" version "6.0.1.5171"
 }
 
 group = 'de.qaware.cloud'
@@ -73,7 +73,7 @@ jacocoTestReport {
 	}
 }
 
-sonarqube {
+sonar {
   properties {
     property "sonar.projectKey", "lreimer_secure-devex22"
     property "sonar.organization", "lreimer"
